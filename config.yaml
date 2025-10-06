@@ -1,0 +1,28 @@
+# Configuration for Turing Pi 2 Screen Monitor
+# Node configuration - Update these IP addresses to match your setup
+nodes:
+  node1:
+    ip: "192.168.1.101"
+    user: "pi"
+  node2:
+    ip: "192.168.1.102"
+    user: "pi"
+  node3:
+    ip: "192.168.1.103"
+    user: "pi"
+
+# Display configuration
+display:
+  i2c_port: 1
+  i2c_address: 0x3C
+  width: 128
+  height: 64
+  rotate: 0
+
+# Update interval in seconds
+update_interval: 2
+
+# SSH configuration
+ssh:
+  key_file: "~/.ssh/id_rsa"
+  timeout: 5
