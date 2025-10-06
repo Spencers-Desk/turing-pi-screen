@@ -147,6 +147,25 @@ cd ~/turing-pi-screen
 python3 monitor.py
 ```
 
+### Display Control
+
+The display can be controlled while the monitor is running:
+
+```bash
+# Toggle the display on/off (keeps monitor running)
+python3 control_display.py toggle
+
+# Or send the signal directly
+kill -SIGUSR1 $(pgrep -f monitor.py)
+
+# Check monitor status
+python3 control_display.py status
+
+# Start/stop the monitor service
+sudo python3 control_display.py on
+sudo python3 control_display.py off
+```
+
 ### Service Management
 
 ```bash

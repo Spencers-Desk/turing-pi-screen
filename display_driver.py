@@ -1,11 +1,18 @@
 """
 OLED display driver for SSD1309 screen.
 """
-from luma.core.interface.serial import i2c
-from luma.core.render import canvas
-from luma.oled.device import ssd1309
-from PIL import ImageFont
 import time
+
+# Try to import display libraries - they may not be available in all environments
+try:
+    from luma.core.interface.serial import i2c
+    from luma.core.render import canvas
+    from luma.oled.device import ssd1309
+    from PIL import ImageFont
+    DISPLAY_AVAILABLE = True
+except ImportError:
+    DISPLAY_AVAILABLE = False
+    print("Warning: Display libraries not available. Running in headless mode.")
 
 
 class DisplayDriver:
@@ -24,19 +31,23 @@ class DisplayDriver:
             height (int): Display height in pixels
             rotate (int): Rotation angle (0, 1, 2, or 3)
         """
+        self.width = width
+        self.height = height
+        self.is_on = True
+        self.device = None
+        
+        if not DISPLAY_AVAILABLE:
+            print("Display libraries not available - running in headless mode")
+            return
+        
         try:
             serial = i2c(port=port, address=address)
             self.device = ssd1309(serial, width=width, height=height, rotate=rotate)
-            self.width = width
-            self.height = height
-            self.is_on = True
+            print("Display initialized successfully")
         except Exception as e:
             print(f"Warning: Could not initialize display: {e}")
             print("Running in headless mode (display output disabled)")
             self.device = None
-            self.width = width
-            self.height = height
-            self.is_on = True
     
     def turn_on(self):
         """Turn the display on."""

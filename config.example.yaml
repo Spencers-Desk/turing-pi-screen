@@ -1,0 +1,33 @@
+# Example Configuration for Turing Pi 2 Screen Monitor
+# Copy this file to config.yaml and update with your settings
+
+# Node configuration
+# Update these IP addresses to match your cluster setup
+nodes:
+  node1:
+    ip: "192.168.1.101"  # Replace with your Node 1 IP address
+    user: "pi"            # Replace with your SSH username
+  node2:
+    ip: "192.168.1.102"  # Replace with your Node 2 IP address
+    user: "pi"
+  node3:
+    ip: "192.168.1.103"  # Replace with your Node 3 IP address
+    user: "pi"
+
+# Display configuration
+# These settings work with the standard 2.42" OLED-IIC screen (SSD1309)
+display:
+  i2c_port: 1           # I2C port (usually 1 on Raspberry Pi)
+  i2c_address: 0x3C     # I2C address (0x3C or 0x3D for most OLED screens)
+  width: 128            # Display width in pixels
+  height: 64            # Display height in pixels
+  rotate: 0             # Rotation: 0, 1, 2, or 3 (90° increments)
+
+# Update interval in seconds
+# Lower values give more frequent updates but use more CPU
+update_interval: 2
+
+# SSH configuration
+ssh:
+  key_file: "~/.ssh/id_rsa"  # Path to SSH private key
+  timeout: 5                   # SSH connection timeout in seconds

@@ -57,11 +57,16 @@ class ScreenMonitor:
         # Setup signal handlers
         signal.signal(signal.SIGINT, self.signal_handler)
         signal.signal(signal.SIGTERM, self.signal_handler)
+        signal.signal(signal.SIGUSR1, self.toggle_display_handler)  # Toggle display
     
     def signal_handler(self, sig, frame):
         """Handle shutdown signals."""
         print("\nShutting down...")
         self.running = False
+    
+    def toggle_display_handler(self, sig, frame):
+        """Handle display toggle signal (SIGUSR1)."""
+        self.toggle_display()
     
     def collect_all_metrics(self):
         """
