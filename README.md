@@ -5,6 +5,8 @@ A screen for monitoring your Turing Pi 2 Raspberry Pi Cluster.
 
 This project provides a Python-based monitoring solution for Turing Pi 2 clusters with Raspberry Pi CM4 nodes. It displays real-time metrics including CPU usage, memory usage, temperature, and hostname for each node on a 2.42" OLED-IIC screen (SSD1309 driver).
 
+**Quick Start:** See [QUICKSTART.md](QUICKSTART.md) for a condensed reference guide.
+
 ### Features
 
 - **Multi-Node Monitoring**: Query and display metrics from all nodes (1-3) from node 4
@@ -108,6 +110,12 @@ ssh:
 
 ### 6. Test the Application
 
+Run diagnostics to check your setup:
+
+```bash
+python3 diagnose.py
+```
+
 Run the monitor manually to test:
 
 ```bash
@@ -203,20 +211,26 @@ pi-node4  12%  35%  45C
 
 ## Modules
 
-### `monitor.py`
-Main application that coordinates metrics collection and display updates.
+### Core Files
 
-### `display_driver.py`
-OLED display driver for SSD1309 screens. Handles display initialization, rendering, and on/off control.
+- **`monitor.py`** - Main application that coordinates metrics collection and display updates
+- **`display_driver.py`** - OLED display driver for SSD1309 screens with on/off control
+- **`metrics_collector.py`** - Local system metrics collection using psutil
+- **`remote_collector.py`** - SSH-based remote metrics collection from other nodes
+- **`config.yaml`** - Configuration file for node IPs, display settings, and SSH parameters
 
-### `metrics_collector.py`
-Local system metrics collection using psutil. Gathers CPU, memory, and temperature data.
+### Utilities
 
-### `remote_collector.py`
-SSH-based remote metrics collection. Queries other nodes for their system metrics.
+- **`control_display.py`** - Command-line utility to control display (on/off/toggle/status)
+- **`diagnose.py`** - Diagnostic tool to troubleshoot installation and configuration issues
+- **`test_components.py`** - Component test utility to verify individual modules
+- **`setup.sh`** - Automated setup script for quick installation
 
-### `config.yaml`
-Configuration file for node IPs, display settings, and SSH parameters.
+### Configuration Files
+
+- **`config.yaml`** - Main configuration (created from config.example.yaml)
+- **`config.example.yaml`** - Example configuration template
+- **`turing-pi-screen.service`** - Systemd service file for auto-start
 
 ## Troubleshooting
 
